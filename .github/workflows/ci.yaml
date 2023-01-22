@@ -18,11 +18,11 @@ jobs:
       uses: actions/checkout@v2
     - name: Build the Dockerfile
       run: |
-        docker build -f AIAC/Dockerfile . \
-        -t chatgpt_devops_example:$GITHUB_RUN_NUMBER
+        cd AIAC/Dockerfile
+        docker build -t chatgpt_devops_example:$GITHUB_RUN_NUMBER .
     - name: Login to Dockerhub
       run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - name: Tag and Push Docker
       run: |
-        docker tag $(docker images -q) $DOCKER_USERNAME/chatgpt_devops_example:$GITHUB_RUN_NUMBER
+        docker tag chatgpt_devops_example:$GITHUB_RUN_NUMBER $DOCKER_USERNAME/chatgpt_devops_example:$GITHUB_RUN_NUMBER
         docker push $DOCKER_USERNAME/chatgpt_devops_example:$GITHUB_RUN_NUMBER
