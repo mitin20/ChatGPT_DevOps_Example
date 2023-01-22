@@ -1,6 +1,10 @@
-name: Deploy k8s/chatgp_devops-example.yaml
+name: Deploy to K8s
 
-on: [push]
+on:
+  workflow_run:
+    workflows: ["Build & Push Docker"]
+    types:
+      - completed
 
 jobs:
   deploy:
