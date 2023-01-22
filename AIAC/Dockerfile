@@ -6,7 +6,7 @@ FROM node:12.4.0-alpine
 WORKDIR /src
 
 # Copy package.json and package-lock.json
-COPY * ./
+COPY src/* ./
 
 # Install
 RUN npm install
