@@ -19,4 +19,4 @@ jobs:
         run: |
           pwd
           ls -lha
-          kubectl apply -f k8s/chatgp_devops-example.yaml --kubeconfig=kubeconfig
+          kubectl apply -f AIAC/k8s/chatgp_devops-example.yaml --kubeconfig=kubeconfig
