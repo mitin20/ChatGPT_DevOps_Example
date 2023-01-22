@@ -17,24 +17,19 @@ jobs:
     - name: Checkout master branch
       uses: actions/checkout@v2
     - name: Extract short sha version for tagging
-
       shell: bash
-
       run: |
-
         Version=$(git log -1 --pretty=%h)
-
         echo "short sha version for tag: $Version"     
-        echo ::set-output name=tagVersion::`echo ${Version}`
-      
+        echo ::set-output name=tagVersion::`echo ${Version}`      
     - name: Build the Dockerfile
       run: |
         cd AIAC/
         docker build -f Dockerfile . \
-        -t chatgpt_devops_example:$tagVersion
+        -t chatgpt_devops_example:${tagVersion}
     - name: Login to Dockerhub
       run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - name: Tag and Push Docker
       run: |
-        docker tag chatgpt_devops_example:$tagVersion $DOCKER_USERNAME/chatgpt_devops_example:$tagVersion
-        docker push $DOCKER_USERNAME/chatgpt_devops_example:$tagVersion
+        docker tag chatgpt_devops_example:${tagVersion} $DOCKER_USERNAME/chatgpt_devops_example:${tagVersion}
+        docker push $DOCKER_USERNAME/chatgpt_devops_example:${tagVersion}

@@ -11,6 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Extract short sha version for tagging
+        shell: bash
+        run: |
+          Version=$(git log -1 --pretty=%h)
+          echo "short sha version for tag: $Version"     
+          echo ::set-output name=tagVersion::`echo ${Version}`       
       - name: Copy KUBE_CONFIG
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
@@ -18,4 +24,4 @@ jobs:
       - name: Deploy k8s/chatgp_devops-example.yaml
         run: |
           kubectl apply -f AIAC/k8s/chatgp_devops-example.yaml --kubeconfig=kubeconfig
-          kubectl set image deployment/chatgptdevopsexample chatgptdevopsexample="mitin20/chatgpt_devops_example:0.0.$GITHUB_RUN_NUMBER" --kubeconfig=kubeconfig
+          kubectl set image deployment/chatgptdevopsexample chatgptdevopsexample="mitin20/chatgpt_devops_example:${tagVersion}" --kubeconfig=kubeconfig
