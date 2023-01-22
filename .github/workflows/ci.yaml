@@ -27,10 +27,10 @@ jobs:
         cd AIAC/
         ls -lha
         docker build -f Dockerfile . \
-        -t chatgpt_devops_example:0.0.$GITHUB_RUN_NUMBER
+        -t chatgpt_devops_example:$GITHUB_SHA
     - name: Login to Dockerhub
       run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - name: Tag and Push Docker
       run: |
-        docker tag chatgpt_devops_example:0.0.$GITHUB_RUN_NUMBER $DOCKER_USERNAME/chatgpt_devops_example:0.0.$GITHUB_RUN_NUMBER
-        docker push $DOCKER_USERNAME/chatgpt_devops_example:0.0.$GITHUB_RUN_NUMBER
+        docker tag chatgpt_devops_example:$GITHUB_SHA $DOCKER_USERNAME/chatgpt_devops_example:$GITHUB_SHA
+        docker push $DOCKER_USERNAME/chatgpt_devops_example:$GITHUB_SHA
