@@ -16,4 +16,7 @@ jobs:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
         run: echo "${KUBE_CONFIG}" | base64 -d > kubeconfig
       - name: Deploy k8s/chatgp_devops-example.yaml
-        run: kubectl apply -f k8s/chatgp_devops-example.yaml --kubeconfig=kubeconfig
+        run: |
+          pwd
+          ls -lha
+          kubectl apply -f k8s/chatgp_devops-example.yaml --kubeconfig=kubeconfig
