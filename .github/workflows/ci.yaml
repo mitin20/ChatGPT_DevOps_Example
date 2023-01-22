@@ -1,0 +1,28 @@
+name: Build & Push Docker
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:      
+
+jobs:
+  build-and-push-docker:
+    name: Build and push docker
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}      
+    steps:
+    - name: Checkout master branch
+      uses: actions/checkout@v2
+    - name: Build the Dockerfile
+      run: |
+        docker build -f AIAC/Dockerfile . \
+        -t chatgpt_devops_example:$GITHUB_RUN_NUMBER
+    - name: Login to Dockerhub
+      run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - name: Tag and Push Docker
+      run: |
+        docker tag $(docker images -q) $DOCKER_USERNAME/chatgpt_devops_example:$GITHUB_RUN_NUMBER
+        docker push $DOCKER_USERNAME/chatgpt_devops_example:$GITHUB_RUN_NUMBER
