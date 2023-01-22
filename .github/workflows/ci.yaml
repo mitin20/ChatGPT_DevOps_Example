@@ -18,7 +18,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Build the Dockerfile
       run: |
-        docker build -f AIAC/Dockerfile . \
+        pwd
+        cd AIAC/
+        ls -lha
+        docker build -f Dockerfile . \
         -t chatgpt_devops_example:0.0.$GITHUB_RUN_NUMBER
     - name: Login to Dockerhub
       run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
