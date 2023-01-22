@@ -19,12 +19,13 @@ jobs:
     - name: Extract short sha version for tagging
       shell: bash
       run: |
-        Version=$(git log -1 --pretty=%h)
-        echo "short sha version for tag: $Version"     
-        echo ::set-output name=tagVersion::`echo ${Version}`      
+        tagVersion=$(git log -1 --pretty=%h)
+        echo "short sha version for tag: $tagVersion"          
     - name: Build the Dockerfile
       run: |
+        pwd
         cd AIAC/
+        ls -lha
         docker build -f Dockerfile . \
         -t chatgpt_devops_example:${tagVersion}
     - name: Login to Dockerhub
