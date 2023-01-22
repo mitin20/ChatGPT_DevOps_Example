@@ -1,0 +1,15 @@
+name: Deploy k8s/chatgp_devops-example.yaml
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Copy KUBE_CONFIG
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        run: echo "${KUBE_CONFIG}" | base64 -d > kubeconfig
+      - name: Deploy k8s/chatgp_devops-example.yaml
+        run: kubectl apply -f k8s/chatgp_devops-example.yaml --kubeconfig=kubeconfig

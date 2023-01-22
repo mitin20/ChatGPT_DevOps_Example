@@ -43,3 +43,6 @@ curl localhost:8080
 # CICD in ../.github/workflows/ci.yaml
 aiac get github actions to build chatgpt_devops_example AIAC/Dockerfile and push to dockerhub.io using DOCKER_USERNAME and DOCKER_PASSWORD
 
+../.github/workflows/cd.yaml
+aiac get github action to deploy k8s/chatgp_devops-example.yaml using base64 KUBE_CONFIG
+
