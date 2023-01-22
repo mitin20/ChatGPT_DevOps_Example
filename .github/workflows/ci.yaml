@@ -22,9 +22,10 @@ jobs:
 
       run: |
 
-        tagVersion=$(git log -1 --pretty=%h)
+        Version=$(git log -1 --pretty=%h)
 
-        echo "short sha version for tag: $tagVersion"      
+        echo "short sha version for tag: $Version"     
+        echo ::set-output name=tagVersion::`echo ${Version}`
       
     - name: Build the Dockerfile
       run: |
