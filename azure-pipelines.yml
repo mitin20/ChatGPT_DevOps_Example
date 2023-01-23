@@ -1,0 +1,39 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- group: Versions
+- group: Credentials
+
+steps:
+- task: Docker@2
+  displayName: Build and push the Docker image
+  inputs:
+    command: buildAndPush
+    repository: 'mitin20/chatgpt_devops_example'
+    projectPath: '$(Build.SourcesDirectory)/AIAC'
+    dockerFile: 'Dockerfile'
+    tags: |
+      $(Build.BuildId)
+      latest
+    arguments: --build-arg reference=$(Build.SourceBranchName)
+    containerregistrytype: 'Container Registry'
+    dockerRegistryEndpoint: 'DockerHub'
+    loginServer: 'index.docker.io'
+    username: '$(DOCKERHUB_USER)'
+    password: '$(DOCKERHUB_TOKEN)'
+
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: 'config'
+
+- task: Kubectl@0
+  displayName: Deploy to k8s
+  inputs:
+    kubernetesServiceEndpoint: 'KubernetesConnection'
+    namespace: 'default'
+    commands: 'apply -f AIAC/k8s/chatgp_devops-example'
+    commandOptions: '--kubeconfig $(Agent.TempDirectory)/config'

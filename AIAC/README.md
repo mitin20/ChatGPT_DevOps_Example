@@ -40,9 +40,11 @@ kubectl apply -f k8s/
 kubectl port-forward svc/chatgpt-devops-example-svc 8080:3000 
 curl localhost:8080
 
-# CICD in ../.github/workflows/ci.yaml
+# github CICD in ../.github/workflows/ci.yaml
 aiac get github actions to build chatgpt_devops_example AIAC/Dockerfile and push to dockerhub.io using DOCKER_USERNAME and DOCKER_PASSWORD
 
 ../.github/workflows/cd.yaml
 aiac get github action to deploy k8s/chatgp_devops-example.yaml using base64 KUBE_CONFIG
 
+# azuredevops CICD ../azure-pipelines.yml
+aiac get azure-pipelines.yml to build image mitin20/chatgpt_devops_example using DOCKER_USERNAME DOCKER_PASSWPRD and deploy to k8s using kubeconfig securefile
