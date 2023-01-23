@@ -14,7 +14,7 @@ steps:
   inputs:
     command: buildAndPush
     repository: 'mitin20/chatgpt_devops_example'
-    projectPath: '$(Build.SourcesDirectory)/AIAC'
+    projectPath: '$(System.DefaultWorkingDirectory)/AIAC/'
     dockerFile: 'Dockerfile'
     tags: |
       $(Build.BuildId)
