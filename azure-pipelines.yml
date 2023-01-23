@@ -9,6 +9,7 @@ variables:
 - group: Credentials
 
 steps:
+
 - task: Docker@2
   displayName: Build and push the Docker image
   inputs:
@@ -19,7 +20,7 @@ steps:
     tags: |
       $(Build.BuildId)
       latest
-      arguments: --build-arg reference=$(Build.SourceBranchName)
+    arguments: --build-arg reference=$(Build.SourceBranchName)
     containerregistrytype: 'Container Registry'
     dockerRegistryEndpoint: 'DockerHub'
     loginServer: 'index.docker.io'
@@ -36,4 +37,12 @@ steps:
     kubernetesServiceEndpoint: 'KubernetesConnection'
     namespace: 'default'
     commands: 'apply -f AIAC/k8s/chatgp_devops-example'
+    commandOptions: '--kubeconfig $(Agent.TempDirectory)/config'
+
+- task: Kubectl@1
+  displayName: Update image
+  inputs:
+    kubernetesServiceEndpoint: 'KubernetesConnection'
+    namespace: 'default'
+    commands: 'set image deployment/chatgptdevopsexample chatgptdevopsexample=mitin20/chatgpt_devops_example:$(Build.BuildId)'
     commandOptions: '--kubeconfig $(Agent.TempDirectory)/config'
