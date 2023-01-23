@@ -21,27 +21,27 @@ steps:
   inputs:
     command: buildAndPush
     containerRegistry: 'DockerHub'
-    repository: chatgpt_devops_example
+    repository: mitin20/chatgpt_devops_example
     dockerFile: '$(System.DefaultWorkingDirectory)/AIAC/Dockerfile'
     tags: |
       $(Build.BuildId)
 
-- task: Docker@2
-  displayName: Build and push the Docker image
-  inputs:
-    command: buildAndPush
-    repository: 'mitin20/chatgpt_devops_example'
-    projectPath: '$(System.DefaultWorkingDirectory)'
-    dockerFile: '$(System.DefaultWorkingDirectory)/AIAC/Dockerfile'
-    tags: |
-      $(Build.BuildId)
-      latest
-    arguments: --build-arg reference=$(Build.SourceBranchName)
-    containerregistrytype: 'Container Registry'
-    dockerRegistryEndpoint: 'DockerHub'
-    loginServer: 'index.docker.io'
-    username: '$(DOCKERHUB_USER)'
-    password: '$(DOCKERHUB_TOKEN)'
+#- task: Docker@2
+#  displayName: Build and push the Docker image
+#  inputs:
+#    command: buildAndPush
+#    repository: 'mitin20/chatgpt_devops_example'
+#    projectPath: '$(System.DefaultWorkingDirectory)'
+#    dockerFile: '$(System.DefaultWorkingDirectory)/AIAC/Dockerfile'
+#    tags: |
+#      $(Build.BuildId)
+#      latest
+#    arguments: --build-arg reference=$(Build.SourceBranchName)
+#    containerregistrytype: 'Container Registry'
+#    dockerRegistryEndpoint: 'DockerHub'
+#    loginServer: 'index.docker.io'
+#    username: '$(DOCKERHUB_USER)'
+#    password: '$(DOCKERHUB_TOKEN)'
 
 - task: DownloadSecureFile@1
   inputs:
