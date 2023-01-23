@@ -13,7 +13,7 @@ steps:
   displayName: Build and push the Docker image
   inputs:
     command: buildAndPush
-    repository: 'mitin20/chatgpt_devops_example'
+    repository: 'chatgpt_devops_example'
     projectPath: '$(System.DefaultWorkingDirectory)'
     dockerFile: '$(System.DefaultWorkingDirectory)/AIAC/Dockerfile'
     tags: |
