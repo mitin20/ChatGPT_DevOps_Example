@@ -47,26 +47,40 @@ steps:
   inputs:
     secureFile: 'config'
 
-- task: Kubectl@1
-  displayName: Test k8s
+- task: Kubernetes@1
+  displayName: 'kubectl  apply'
   inputs:
-    kubernetesServiceEndpoint: 'KubernetesConnection'
-    namespace: 'default'
-    commands: 'get nodes'
-    commandOptions: '--kubeconfig $(Agent.TempDirectory)/config'
+    kubernetesServiceEndpoint: 'aks-pr-dev'
+    command: apply
+    arguments: '-f chatgp_devops-example.yaml'
+    secretType: generic
+    versionSpec: 1.18.5
+    workingDirectory: '$(System.DefaultWorkingDirectory)/AIAC/k8s'
+    outputFormat: none
 
-- task: Kubectl@1
-  displayName: Deploy to k8s
+- task: Kubernetes@1
+  displayName: 'kubectl set image'
   inputs:
-    kubernetesServiceEndpoint: 'KubernetesConnection'
-    namespace: 'default'
-    commands: 'apply -f AIAC/k8s/chatgp_devops-example.yaml'
-    commandOptions: '--kubeconfig $(Agent.TempDirectory)/config'
+    kubernetesServiceEndpoint: 'aks-pr-dev'
+    command: set
+    arguments: 'image deployment/chatgptdevopsexample chatgptdevopsexample=mitin20/chatgpt_devops_example:$(Build.BuildId)'
+    secretType: generic
+    versionSpec: 1.18.5
+    workingDirectory: '$(System.DefaultWorkingDirectory)/AIAC/k8s'
+    outputFormat: none
 
-- task: Kubectl@1
-  displayName: Update image
-  inputs:
-    kubernetesServiceEndpoint: 'KubernetesConnection'
-    namespace: 'default'
-    commands: 'set image deployment/chatgptdevopsexample chatgptdevopsexample=mitin20/chatgpt_devops_example:$(Build.BuildId)'
-    commandOptions: '--kubeconfig $(Agent.TempDirectory)/config'
+#- task: Kubectl@1
+#  displayName: Deploy to k8s
+#  inputs:
+#    kubernetesServiceEndpoint: 'KubernetesConnection'
+#    namespace: 'default'
+#    commands: 'apply -f AIAC/k8s/chatgp_devops-example.yaml'
+#    commandOptions: '--kubeconfig $(Agent.TempDirectory)/config'
+
+#- task: Kubectl@1
+#  displayName: Update image
+#  inputs:
+#    kubernetesServiceEndpoint: 'KubernetesConnection'
+#    namespace: 'default'
+#    commands: 'set image deployment/chatgptdevopsexample chatgptdevopsexample=mitin20/chatgpt_devops_example:$(Build.BuildId)'
+#    commandOptions: '--kubeconfig $(Agent.TempDirectory)/config'
