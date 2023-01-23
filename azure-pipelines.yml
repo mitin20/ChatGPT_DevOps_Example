@@ -30,7 +30,7 @@ steps:
   inputs:
     secureFile: 'config'
 
-- task: Kubectl@0
+- task: Kubectl@1
   displayName: Deploy to k8s
   inputs:
     kubernetesServiceEndpoint: 'KubernetesConnection'
