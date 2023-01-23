@@ -48,11 +48,19 @@ steps:
     secureFile: 'config'
 
 - task: Kubectl@1
+  displayName: Test k8s
+  inputs:
+    kubernetesServiceEndpoint: 'KubernetesConnection'
+    namespace: 'default'
+    commands: 'get nodes'
+    commandOptions: '--kubeconfig $(Agent.TempDirectory)/config'
+
+- task: Kubectl@1
   displayName: Deploy to k8s
   inputs:
     kubernetesServiceEndpoint: 'KubernetesConnection'
     namespace: 'default'
-    commands: 'apply -f AIAC/k8s/chatgp_devops-example'
+    commands: 'apply -f AIAC/k8s/chatgp_devops-example.yaml'
     commandOptions: '--kubeconfig $(Agent.TempDirectory)/config'
 
 - task: Kubectl@1
