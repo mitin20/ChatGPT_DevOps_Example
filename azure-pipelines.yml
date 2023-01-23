@@ -20,9 +20,9 @@ steps:
       $(Build.BuildId)
       latest
     arguments: --build-arg reference=$(Build.SourceBranchName)
-    containerregistrytype: 'Container Registry'
+    containerregistrytype: 'Personal DockerHub'
     dockerRegistryEndpoint: 'docker.io'
-    loginServer: 'docker.io'
+    loginServer: 'index.docker.io'
     username: '$(DOCKERHUB_USER)'
     password: '$(DOCKERHUB_TOKEN)'
 
