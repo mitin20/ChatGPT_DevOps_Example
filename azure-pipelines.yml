@@ -13,18 +13,18 @@ steps:
   displayName: Build and push the Docker image
   inputs:
     command: buildAndPush
-    repository: 'chatgpt_devops_example'
+    repository: 'mitin20/chatgpt_devops_example'
     projectPath: '$(System.DefaultWorkingDirectory)'
     dockerFile: '$(System.DefaultWorkingDirectory)/AIAC/Dockerfile'
     tags: |
       $(Build.BuildId)
       latest
       arguments: --build-arg reference=$(Build.SourceBranchName)
-    #containerregistrytype: 'Container Registry'
-    #dockerRegistryEndpoint: 'DockerHub'
-    #loginServer: 'index.docker.io'
-    #username: '$(DOCKERHUB_USER)'
-    #password: '$(DOCKERHUB_TOKEN)'
+    containerregistrytype: 'Container Registry'
+    dockerRegistryEndpoint: 'DockerHub'
+    loginServer: 'index.docker.io'
+    username: '$(DOCKERHUB_USER)'
+    password: '$(DOCKERHUB_TOKEN)'
     containerRegistry: 'Personal DockerHub'
 
 - task: DownloadSecureFile@1
