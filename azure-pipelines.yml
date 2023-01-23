@@ -13,14 +13,14 @@ steps:
 - task: Docker@2
   displayName: 'Registry Login'
   inputs:
-    containerRegistry: 'Personal DockerHub'
+    containerRegistry: 'DockerHub'
     command: 'login'
 
 - task: Docker@2
   displayName: Build and Push
   inputs:
     command: buildAndPush
-    containerRegistry: 'Personal DockerHub'
+    containerRegistry: 'DockerHub'
     repository: chatgpt_devops_example
     dockerFile: '$(System.DefaultWorkingDirectory)/AIAC/Dockerfile'
     tags: |
