@@ -48,3 +48,6 @@ aiac get github action to deploy k8s/chatgp_devops-example.yaml using base64 KUB
 
 # azuredevops CICD ../azure-pipelines.yml
 aiac get azure-pipelines.yml to build image mitin20/chatgpt_devops_example using DOCKER_USERNAME DOCKER_PASSWPRD and deploy to k8s using kubeconfig securefile
+
+# Jenkinsfile CICD ../Jenkinsfile
+aiac get Jenkinsfile to build image mitin20/chatgpt_devops_example using DOCKER_USERNAME DOCKER_PASSWPRD and deploy to k8s using kubeconfig base64 file
