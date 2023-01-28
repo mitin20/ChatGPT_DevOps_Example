@@ -1,6 +1,5 @@
 deploy:
-  - cd AIAC/
-  - okteto build -t okteto.dev/hello-world:latest
+  - okteto build -t okteto.dev/hello-world:test ./AIAC/
   #- echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
   #- docker tag chatgpt_devops_example:${GITHUB_SHA} ${DOCKER_USERNAME}/chatgpt_devops_example:${GITHUB_SHA}
   #- docker push ${DOCKER_USERNAME}/chatgpt_devops_example:${GITHUB_SHA}
