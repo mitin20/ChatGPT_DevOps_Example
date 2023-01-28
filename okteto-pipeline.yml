@@ -5,7 +5,7 @@ deploy:
   - kubectl apply -f AIAC/k8s/chatgp_devops-example.yaml
   #- kubectl set image deployment/chatgptdevopsexample chatgptdevopsexample="mitin20/chatgpt_devops_example:${GITHUB_SHA}"
 endpoints:
-  edge:
+  chatgpt-devops-example-svc:
     - path: /
       service: chatgpt-devops-example-svc
       port: 3000
