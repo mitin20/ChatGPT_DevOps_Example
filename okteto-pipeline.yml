@@ -1,8 +1,8 @@
 deploy:
-  - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-  - docker tag chatgpt_devops_example:${GITHUB_SHA} ${DOCKER_USERNAME}/chatgpt_devops_example:${GITHUB_SHA}
-  - docker push ${DOCKER_USERNAME}/chatgpt_devops_example:${GITHUB_SHA}
+  #- echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+  #- docker tag chatgpt_devops_example:${GITHUB_SHA} ${DOCKER_USERNAME}/chatgpt_devops_example:${GITHUB_SHA}
+  #- docker push ${DOCKER_USERNAME}/chatgpt_devops_example:${GITHUB_SHA}
   - kubectl apply -f AIAC/k8s/chatgp_devops-example.yaml
-  - kubectl set image deployment/chatgptdevopsexample chatgptdevopsexample="mitin20/chatgpt_devops_example:${GITHUB_SHA}"
+  #- kubectl set image deployment/chatgptdevopsexample chatgptdevopsexample="mitin20/chatgpt_devops_example:${GITHUB_SHA}"
 #devs:
 #  - okteto.yml
